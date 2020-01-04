@@ -5,7 +5,7 @@
 > * 译者：[春雪](https://github.com/balancelove)
 > * 校对者：[athena0304](https://github.com/athena0304) [tvChan](https://github.com/tvchan)
 
-# JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5个如何更好的使用 async/await 编码的技巧
+# JavaScript 是如何工作的: 事件循环和异步编程的崛起 + 5个如何更好的使用 async/await 编码的技巧
 
 欢迎来到旨在探索 JavaScript 以及它的核心元素的系列文章的第四篇。在认识、描述这些核心元素的过程中，我们也会分享一些当我们构建 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-4-eventloop-intro) 的时候遵守的一些经验规则，一个 JavaScript 应用应该保持健壮和高性能来维持竞争力。
 
@@ -648,6 +648,21 @@ var response = await rp(‘https://api.example.com/endpoint1');
 ```
 
 2. **错误处理:** Async/await 使得我们可以使用相同的代码结构处理同步或者异步的错误 —— 著名的 try/catch 语句。让我们看看用 Promises 是怎么实现的：
+
+```js
+function loadData() {
+    try { // Catches synchronous errors.
+        getJSON().then(function(response) {
+            var parsed = JSON.parse(response);
+            console.log(parsed);
+        }).catch(function(e) { // Catches asynchronous errors
+            console.log(e); 
+        });
+    } catch(e) {
+        console.log(e);
+    }
+}
+```
 
 对比：
 
